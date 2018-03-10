@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="60dp"
-    android:padding="16dp"
+    android:layout_marginTop="@dimen/linearLayout_contentHome_marginTop"
+    android:padding="@dimen/linearLayout_contentHome_padding"
     android:orientation="vertical"
     android:weightSum="3">
 
@@ -16,16 +16,16 @@
     </fragment>
 
     <fragment
-        android:name="org.pdm.ib.fragment.FragmentContCurent"
-        android:id="@+id/fragment_cont_curent"
+        android:name="org.pdm.ib.fragment.FragmentAccount"
+        android:id="@+id/fragment_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
     </fragment>
 
     <fragment
-        android:name="org.pdm.ib.fragment.FragmentGrafic"
-        android:id="@+id/fragment_grafic"
+        android:name="org.pdm.ib.fragment.FragmentChart"
+        android:id="@+id/fragment_chart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">

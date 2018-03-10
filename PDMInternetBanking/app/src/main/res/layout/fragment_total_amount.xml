@@ -9,39 +9,38 @@
         android:id="@+id/cv_totalAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="@dimen/cv_marginBottom">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="@dimen/relativeLayout_padding">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/photo"
+                android:id="@+id/total_amount_photo"
                 android:src="@mipmap/ic_launcher"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="@dimen/imageView_layout_marginRight"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/photo"
-                android:textSize="30sp"
-                android:id="@+id/suma"
-                android:text="Suma de bani "/>
+                android:layout_toRightOf="@+id/total_amount_photo"
+                android:textSize="@dimen/tv_big_textSize"
+                android:id="@+id/totalAmount_label"
+                android:text="@string/total_balance_label"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/nr"
-                android:layout_toRightOf="@+id/photo"
-                android:layout_below="@+id/suma"
-                android:textSize="20sp"
-                android:text="5000"/>
+                android:layout_toRightOf="@+id/total_amount_photo"
+                android:layout_below="@+id/totalAmount_label"
+                android:textSize="@dimen/tv_small_textSize"/>
 
         </RelativeLayout>
 

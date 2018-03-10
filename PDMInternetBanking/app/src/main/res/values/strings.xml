@@ -19,4 +19,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="account_balance_text">Balance</string>
+    <string name="account_chart_text">Chart</string>
+    <string name="total_balance_label">Total balance</string>
 </resources>
