@@ -15,32 +15,10 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/relativeLayout_padding">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chart_photo"
-                android:src="@mipmap/ic_launcher_round"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="@dimen/imageView_layout_marginRight"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/chart_photo"
-                android:textSize="@dimen/tv_big_textSize"
-                android:id="@+id/account_chart_label"
-                android:text="@string/account_chart_text"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chart_evolution"
-                android:layout_toRightOf="@+id/chart_photo"
-                android:layout_below="@+id/account_chart_label"
-                android:text="See your balance evolution"
-                android:textSize="@dimen/tv_small_textSize"/>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_account_evolution"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
 

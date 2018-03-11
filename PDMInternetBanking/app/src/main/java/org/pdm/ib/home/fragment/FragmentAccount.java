@@ -1,4 +1,4 @@
-package org.pdm.ib.fragment;
+package org.pdm.ib.home.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

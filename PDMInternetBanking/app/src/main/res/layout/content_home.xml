@@ -8,7 +8,7 @@
     android:weightSum="3">
 
     <fragment
-        android:name="org.pdm.ib.fragment.FragmentTotalAmount"
+        android:name="org.pdm.ib.home.fragment.FragmentTotalAmount"
         android:id="@+id/fragment_total_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
     </fragment>
 
     <fragment
-        android:name="org.pdm.ib.fragment.FragmentAccount"
+        android:name="org.pdm.ib.home.fragment.FragmentAccount"
         android:id="@+id/fragment_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
     </fragment>
 
     <fragment
-        android:name="org.pdm.ib.fragment.FragmentChart"
+        android:name="org.pdm.ib.home.fragment.FragmentChart"
         android:id="@+id/fragment_chart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
