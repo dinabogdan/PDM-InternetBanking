@@ -6,7 +6,6 @@ public class AccountBalance {
 
     private Date month;
     private Double amount;
-    private String iban;
 
     public Date getMonth() {
         return month;
@@ -22,13 +21,5 @@ public class AccountBalance {
 
     public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public String getIban() {
-        return iban;
-    }
-
-    public void setIban(String iban) {
-        this.iban = iban;
     }
 }

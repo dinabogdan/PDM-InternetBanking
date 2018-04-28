@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateAdapter implements JsonDeserializer<Date> {
 
@@ -20,14 +21,11 @@ public class DateAdapter implements JsonDeserializer<Date> {
 
     @Override
     public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-
         try {
-            return new SimpleDateFormat(dateFormat).parse(json.getAsString());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
+            return new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(json.getAsString());
         }
-
-        return null;
+        catch (ParseException e) {
+            throw new JsonParseException(e.getMessage(), e);
+        }
     }
 }

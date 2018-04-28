@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="accounts_array">
+        <item>Current account</item>
+        <item>Savings account</item>
+    </string-array>
+    <string-array name="payment_types_array">
+        <item>New payment</item>
+        <item>Use saved payment</item>
+    </string-array>
+</resources>

@@ -8,9 +8,9 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_email">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -21,6 +21,46 @@
     </string>
 
     <string name="account_balance_text">Balance</string>
-    <string name="account_chart_text">Chart</string>
+    <string name="account_chart_title_placeholder">%s evolution</string>
     <string name="total_balance_label">Total balance</string>
+    <string name="choose_account">Choose account</string>
+    <string name="user_details_placeholder">%s %s</string>
+    <string name="balance_placeholder">%3.2f RON</string>
+
+
+    <!--regular navigation menu items-->
+    <string name="navigation_home_title">Home</string>
+    <string name="navigation_transactions_title">Transactions</string>
+    <string name="navigation_payments_title">Payments</string>
+
+    <string name="navigation_group_social">Social</string>
+    <string name="navigation_send_iban_title">Send IBAN</string>
+    <string name="navigation_find_atm_title">Find ATM</string>
+
+    <string name="navigation_group_account">Account</string>
+    <string name="navigation_logout_title">Log out</string>
+
+
+    <!--choose account navigation menu items-->
+    <string name="current_account_title">Current account</string>
+    <string name="savings_account_title">Savings account</string>
+    <string name="credit_account_title">Credit account</string>
+    <string name="title_activity_find_atm">Find ATM</string>
+    <string name="title_activity_payment">PaymentActivity</string>
+    <string name="title_activity_payments">PaymentsActivity</string>
+
+    <string name="text_hint_iban">IBAN</string>
+    <string name="text_currency">RON</string>
+
+    <string name="payments_action">Choose payment type</string>
+    <string name="payments_account">Account</string>
+    <string name="payments_amount">Amount</string>
+    <string name="payments_currency">Currency</string>
+    <string name="payments_save">Save this payment in MyPayments for future use</string>
+    <string name="payments_receiver_account">Receiver account</string>
+    <string name="payments_receiver_name">Receiver name</string>
+    <string name="payments_discard_button">Discard</string>
+    <string name="payments_save_button">Proceed</string>
+    <string name="payments_success_message">Payment successfully saved</string>
+
 </resources>

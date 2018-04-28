@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_fragment_total_amount"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,34 +13,32 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/home_card_total_balance"
             android:padding="@dimen/relativeLayout_padding">
 
             <ImageView
+                android:id="@+id/total_amount_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/total_amount_photo"
-                android:src="@mipmap/ic_launcher"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="@dimen/imageView_layout_marginRight"/>
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_attach_money_white_48px" />
 
             <TextView
+                android:id="@+id/totalAmount_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/total_amount_photo"
-                android:textSize="@dimen/tv_big_textSize"
-                android:id="@+id/totalAmount_label"
+                android:textSize="@dimen/tv_small_textSize"
+                android:layout_below="@+id/total_amount_photo"
+                android:layout_centerHorizontal="true"
                 android:text="@string/total_balance_label"/>
 
             <TextView
+                android:id="@+id/text_view_total_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/nr"
-                android:layout_toRightOf="@+id/total_amount_photo"
                 android:layout_below="@+id/totalAmount_label"
-                android:textSize="@dimen/tv_small_textSize"/>
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/tv_big_textSize"/>
 
         </RelativeLayout>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_fragment_account"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,35 +12,42 @@
         android:layout_marginBottom="@dimen/cv_marginBottom">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/relativeLayout_padding">
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_card_balance">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/account_photo"
-                android:src="@mipmap/ic_launcher_round"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="@dimen/imageView_layout_marginRight"/>
+            <LinearLayout
+                android:id="@+id/linear_layout_card_account"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_card_header"
+                android:orientation="horizontal"
+                android:background="@color/colorAccent">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="15"
+                    android:id="@+id/account_photo"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    app:srcCompat="@drawable/ic_account_balance_wallet_24px"/>
+
+                <TextView
+                    android:id="@+id/account_balance_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="85"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing_small"/>
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/text_view_account_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/account_photo"
-                android:textSize="@dimen/tv_big_textSize"
-                android:id="@+id/account_balance_label"
-                android:text="@string/account_balance_text"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/account_balance"
-                android:layout_toRightOf="@+id/account_photo"
-                android:layout_below="@+id/account_balance_label"
-                android:textSize="@dimen/tv_small_textSize"/>
+                android:layout_below="@+id/linear_layout_card_account"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="@dimen/linearLayout_contentHome_padding"
+                android:textSize="@dimen/tv_big_textSize"/>
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

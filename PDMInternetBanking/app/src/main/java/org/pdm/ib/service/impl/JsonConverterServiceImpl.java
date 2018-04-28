@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import org.pdm.ib.json.adapter.DateAdapter;
 import org.pdm.ib.service.JsonConverterService;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +17,12 @@ public class JsonConverterServiceImpl implements JsonConverterService {
             .create();
 
     @Override
-    public <T> List<T> fromJsonArray(String jsonArrayStr, final Class<T> typeOfT) {
+    public <T> T fromJson(String json, Class<T> typeOfT) {
+        return gson.fromJson(json, typeOfT);
+    }
 
+    @Override
+    public <T> List<T> fromJsonArray(String jsonArrayStr, final Class<T> typeOfT) {
         List elements = gson.fromJson(jsonArrayStr, List.class);
 
         List <T> converted = new ArrayList<>();
@@ -32,7 +35,6 @@ public class JsonConverterServiceImpl implements JsonConverterService {
     }
 
     private <T> T fromObject(Object object, Class<T> typeOfT) {
-
         return gson.fromJson(gson.toJson(object), typeOfT);
     }
 }

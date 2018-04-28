@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/linearLayout_contentHome_marginTop"
-    android:padding="@dimen/linearLayout_contentHome_padding"
-    android:orientation="vertical"
-    android:weightSum="3">
+    android:layout_width="match_parent">
 
-    <fragment
-        android:name="org.pdm.ib.home.fragment.FragmentTotalAmount"
-        android:id="@+id/fragment_total_amount"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </fragment>
+        android:orientation="vertical"
+        android:padding="@dimen/linearLayout_contentHome_padding">
 
-    <fragment
-        android:name="org.pdm.ib.home.fragment.FragmentAccount"
-        android:id="@+id/fragment_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </fragment>
+        <fragment
+            android:id="@+id/fragment_total_amount"
+            android:name="org.pdm.ib.home.fragment.FragmentTotalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
 
-    <fragment
-        android:name="org.pdm.ib.home.fragment.FragmentChart"
-        android:id="@+id/fragment_chart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </fragment>
+        <fragment
+            android:id="@+id/fragment_account"
+            android:name="org.pdm.ib.home.fragment.FragmentAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
 
-</LinearLayout>
+        <fragment
+            android:id="@+id/fragment_chart"
+            android:name="org.pdm.ib.home.fragment.FragmentChart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
+
+    </LinearLayout>
+</ScrollView>
