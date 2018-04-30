@@ -3,8 +3,10 @@ package org.pdm.ib.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Payment {
+public class Payment implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;

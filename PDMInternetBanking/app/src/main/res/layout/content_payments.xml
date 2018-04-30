@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/payments_action" />
             <Spinner
+                android:id="@+id/spinnerChoosePaymentType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/payment_spinner_vertical_spacing"

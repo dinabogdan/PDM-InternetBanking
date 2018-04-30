@@ -62,5 +62,7 @@
     <string name="payments_discard_button">Discard</string>
     <string name="payments_save_button">Proceed</string>
     <string name="payments_success_message">Payment successfully saved</string>
+    <string name="choose_saved_payment">Choose payment</string>
+    <string name="choose_saved_payment_no_payment_message">No saved payment found</string>
 
 </resources>

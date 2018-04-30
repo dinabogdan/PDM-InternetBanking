@@ -8,5 +8,6 @@ import java.util.List;
 public interface TransactionService {
 
     List<Transaction> getTransactions();
+    
     void newPayment(Payment payment);
 }

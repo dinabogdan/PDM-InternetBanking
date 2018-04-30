@@ -1,6 +1,7 @@
 package org.pdm.ib.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -15,5 +16,8 @@ public interface PaymentDAO {
     List<Payment> getSavedPayments();
 
     @Insert
-    void savePayment(Payment payment);
+    void save(Payment payment);
+
+    @Delete
+    void delete(Payment payment);
 }
