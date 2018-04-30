@@ -64,5 +64,8 @@
     <string name="payments_success_message">Payment successfully saved</string>
     <string name="choose_saved_payment">Choose payment</string>
     <string name="choose_saved_payment_no_payment_message">No saved payment found</string>
+    <string name="add_widget">Add widget</string>
+    <string name="widget_btn_new_payment_text">New payment</string>
+    <string name="widget_updated_text">Updated:</string>
 
 </resources>

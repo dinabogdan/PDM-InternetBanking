@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/widget_margin_custom">
+
+    <ImageView
+        android:id="@+id/widget_total_amount_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/ic_attach_money_white_48px" />
+
+    <TextView
+        android:id="@+id/widget_totalAmount_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_small_textSize"
+        android:layout_below="@+id/widget_total_amount_photo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/total_balance_label"
+        android:textColor="#fff"/>
+
+    <TextView
+        android:id="@+id/widgetTextViewTotalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widget_totalAmount_label"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/tv_big_textSize"
+        android:textColor="#fff"/>
+
+    <Button
+        android:id="@+id/widget_button_payment"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widgetTextViewTotalAmount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/widget_btn_new_payment_text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widget_button_payment"
+        android:weightSum="10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="@string/widget_updated_text"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/widgetTextViewLastUpdated"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:textColor="#fff" />
+
+        <ImageView
+            android:id="@+id/widgetImageViewRefresh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ic_refresh_white_18dp" />
+
+    </LinearLayout>
+</RelativeLayout>

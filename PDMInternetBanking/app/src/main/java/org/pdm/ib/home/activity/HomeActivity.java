@@ -27,6 +27,7 @@ import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.UserProfileService;
 import org.pdm.ib.service.impl.AccountServiceImpl;
 import org.pdm.ib.service.impl.UserProfileServiceImpl;
+import org.pdm.ib.widget.AccountBalanceWidget;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,7 +51,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
 
-        replaceFragment(FragmentContentHome.class);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey(AccountBalanceWidget.NEW_PAYMENT_KEY)) {
+            replaceFragment(FragmentPayments.class);
+            navigationView.getMenu().findItem(R.id.nav_payments).setChecked(true);
+        } else {
+            replaceFragment(FragmentContentHome.class);
+        }
 
         View header = navigationView.getHeaderView(0);
 

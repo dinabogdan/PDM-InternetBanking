@@ -53,6 +53,16 @@
         <activity
             android:name=".map.FindATMActivity"
             android:label="@string/title_activity_find_atm" />
+
+        <receiver android:name=".widget.AccountBalanceWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/account_balance_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
