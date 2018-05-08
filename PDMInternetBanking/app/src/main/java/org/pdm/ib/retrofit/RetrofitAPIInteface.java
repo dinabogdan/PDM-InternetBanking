@@ -1,7 +1,8 @@
 package org.pdm.ib.retrofit;
 
+import org.pdm.ib.command.AccountCommand;
+import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.model.Account;
-import org.pdm.ib.model.Customer;
 import org.pdm.ib.model.Transaction;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import retrofit2.http.Path;
 public interface RetrofitAPIInteface {
 
     @GET("/customers/{customerId}/accounts")
-    Call<List<Account>> getAllUsersAccounts(@Path("customerId") Long customerId);
+    Call<List<AccountCommand>> getAllUsersAccounts(@Path("customerId") Long customerId);
 
     @GET("/customers/{customerId}/accoutnsByAcctId/{accountId}")
     Call<Account> getAccountById(@Path("customerId") Long customerId, @Path("accountId") Long accountId);
@@ -27,13 +28,13 @@ public interface RetrofitAPIInteface {
     Call<Object> addNewAccount(@Body Account account);
 
     @GET("/customers")
-    Call<List<Customer>> getAllCustomers();
+    Call<List<CustomerCommand>> getAllCustomers();
 
     @GET("/customers/{customerId}")
-    Call<Customer> getCustomerById(@Path("customerId") Long customerId);
+    Call<CustomerCommand> getCustomerById(@Path("customerId") Long customerId);
 
     @POST("/customers")
-    Call<Object> addNewCustomer(@Body Customer customer);
+    Call<Object> addNewCustomer(@Body CustomerCommand customer);
 
     @GET("/customers/{customerId}/accountsByAcctId/{accountId}/transactions")
     Call<List<Transaction>> getAllTransactionForASpecificAccountByAcctId(@Path("customerId") Long customerId, @Path("accountId") Long accountId);
