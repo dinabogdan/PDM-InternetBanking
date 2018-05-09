@@ -1,6 +1,7 @@
 package org.pdm.ib.service.impl;
 
 import org.pdm.ib.model.Account;
+import org.pdm.ib.retrofit.RetrofitAPIService;
 import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.JsonConverterService;
 
@@ -8,17 +9,20 @@ import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
 
+    private RetrofitAPIService retrofitAPIService;
+
     private String data =
             "[" +
-                "{\"title\": \"Current account\", \"type\":\"CURRENT\", balance: {\"month\": \"2018-01-01 00:00:00\", \"amount\": 1450.00}}," +
-                "{\"title\": \"Savings account\", \"type\":\"SAVINGS\", balance: {\"month\": \"2018-01-01 00:00:00\", \"amount\": 6530.00}}," +
-                "{\"title\": \"Credit account\", \"type\":\"CREDIT\"}" +
-            "]";
+                    "{\"title\": \"Current account\", \"type\":\"CURRENT\", balance: {\"month\": \"2018-01-01 00:00:00\", \"amount\": 1450.00}}," +
+                    "{\"title\": \"Savings account\", \"type\":\"SAVINGS\", balance: {\"month\": \"2018-01-01 00:00:00\", \"amount\": 6530.00}}," +
+                    "{\"title\": \"Credit account\", \"type\":\"CREDIT\"}" +
+                    "]";
 
     private JsonConverterService jsonConverterService;
 
     public AccountServiceImpl() {
         this.jsonConverterService = new JsonConverterServiceImpl();
+        this.retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
     }
 
     @Override

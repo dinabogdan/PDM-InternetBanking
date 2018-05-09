@@ -27,7 +27,7 @@ public class AccountCommand {
     @SerializedName("receivers")
     public List<TransactionCommand> receivers;
 
-    public AccountCommand(Long id, Integer accountNumber, BigDecimal balance, AccountType accountType, Date openDate, CustomerCommand customerCommand, List<TransactionCommand> payers, List<TransactionCommand> receivers) {
+    protected AccountCommand(Long id, Integer accountNumber, BigDecimal balance, AccountType accountType, Date openDate, CustomerCommand customerCommand, List<TransactionCommand> payers, List<TransactionCommand> receivers) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.balance = balance;
@@ -36,5 +36,75 @@ public class AccountCommand {
         this.customerCommand = customerCommand;
         this.payers = payers;
         this.receivers = receivers;
+    }
+
+    private AccountCommand(Builder builder) {
+        id = builder.id;
+        accountNumber = builder.accountNumber;
+        balance = builder.balance;
+        accountType = builder.accountType;
+        openDate = builder.openDate;
+        customerCommand = builder.customerCommand;
+        payers = builder.payers;
+        receivers = builder.receivers;
+    }
+
+
+    public static final class Builder {
+        private Long id;
+        private Integer accountNumber;
+        private BigDecimal balance;
+        private AccountType accountType;
+        private Date openDate;
+        private CustomerCommand customerCommand;
+        private List<TransactionCommand> payers;
+        private List<TransactionCommand> receivers;
+
+        public Builder() {
+        }
+
+        public Builder withId(Long val) {
+            id = val;
+            return this;
+        }
+
+        public Builder withAccountNumber(Integer val) {
+            accountNumber = val;
+            return this;
+        }
+
+        public Builder withBalance(BigDecimal val) {
+            balance = val;
+            return this;
+        }
+
+        public Builder withAccountType(AccountType val) {
+            accountType = val;
+            return this;
+        }
+
+        public Builder withOpenDate(Date val) {
+            openDate = val;
+            return this;
+        }
+
+        public Builder withCustomerCommand(CustomerCommand val) {
+            customerCommand = val;
+            return this;
+        }
+
+        public Builder withPayers(List<TransactionCommand> val) {
+            payers = val;
+            return this;
+        }
+
+        public Builder withReceivers(List<TransactionCommand> val) {
+            receivers = val;
+            return this;
+        }
+
+        public AccountCommand build() {
+            return new AccountCommand(this);
+        }
     }
 }
