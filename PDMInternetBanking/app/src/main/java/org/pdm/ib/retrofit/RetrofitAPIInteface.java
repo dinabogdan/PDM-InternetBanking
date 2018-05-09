@@ -2,6 +2,7 @@ package org.pdm.ib.retrofit;
 
 import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
+import org.pdm.ib.command.TransactionCommand;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Transaction;
 
@@ -18,14 +19,14 @@ public interface RetrofitAPIInteface {
     @GET("/customers/{customerId}/accounts")
     Call<List<AccountCommand>> getAllUsersAccounts(@Path("customerId") Long customerId);
 
-    @GET("/customers/{customerId}/accoutnsByAcctId/{accountId}")
-    Call<Account> getAccountById(@Path("customerId") Long customerId, @Path("accountId") Long accountId);
+    @GET("/customers/{customerId}/accountsByAcctId/{accountId}")
+    Call<AccountCommand> getAccountById(@Path("customerId") Long customerId, @Path("accountId") Long accountId);
 
     @GET("/customers/{customerId}/accountsByAcctNo/{accountNumber}")
-    Call<Account> getAccountByAcctNo(@Path("customerId") Long customerId, @Path("accountNumber") Long accountNumber);
+    Call<AccountCommand> getAccountByAcctNo(@Path("customerId") Long customerId, @Path("accountNumber") Long accountNumber);
 
     @POST("/customers/{customerId}/accounts")
-    Call<Object> addNewAccount(@Body Account account);
+    Call<Object> addNewAccount(@Path("customerId") Long customerId, @Body AccountCommand account);
 
     @GET("/customers")
     Call<List<CustomerCommand>> getAllCustomers();
@@ -37,8 +38,8 @@ public interface RetrofitAPIInteface {
     Call<Object> addNewCustomer(@Body CustomerCommand customer);
 
     @GET("/customers/{customerId}/accountsByAcctId/{accountId}/transactions")
-    Call<List<Transaction>> getAllTransactionForASpecificAccountByAcctId(@Path("customerId") Long customerId, @Path("accountId") Long accountId);
+    Call<List<TransactionCommand>> getAllTransactionForASpecificAccountByAcctId(@Path("customerId") Long customerId, @Path("accountId") Long accountId);
 
     @GET("/customers/{customerId}/accountsByAcctNo/{accountNumber}/transactions/{transactionId}")
-    Call<Transaction> getSpecificTransactionForAcctNo(@Path("customerId") Long customerId, @Path("accountNumber") Long accountNumber, @Path("transactionId") Long transactionId);
+    Call<TransactionCommand> getSpecificTransactionForAcctNo(@Path("customerId") Long customerId, @Path("accountNumber") Long accountNumber, @Path("transactionId") Long transactionId);
 }

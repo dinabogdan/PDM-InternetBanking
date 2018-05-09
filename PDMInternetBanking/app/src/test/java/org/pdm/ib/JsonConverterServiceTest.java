@@ -1,18 +1,20 @@
 package org.pdm.ib;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.junit.Test;
 import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.model.AccountBalance;
+import org.pdm.ib.retrofit.RetrofitAPIInteface;
 import org.pdm.ib.retrofit.RetrofitAPIService;
+import org.pdm.ib.retrofit.RetrofitAPIServiceGenerator;
 import org.pdm.ib.service.JsonConverterService;
 import org.pdm.ib.service.impl.JsonConverterServiceImpl;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Retrofit;
+import retrofit2.Call;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -50,9 +52,29 @@ public class JsonConverterServiceTest {
     }
 
     @Test
+    public void test_first_sync_api_call() {
+        RetrofitAPIInteface retrofitAPIService = RetrofitAPIServiceGenerator.createService(RetrofitAPIInteface.class);
+        Call<List<AccountCommand>> call = retrofitAPIService.getAllUsersAccounts(1L);
+        try {
+            List<AccountCommand> accounts = call.execute().body();
+            System.out.println("The size of the list: " + accounts.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void test_first_api_call() {
+        List<AccountCommand> accounts = new ArrayList<>();
         RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
-        List<AccountCommand> accounts = retrofitAPIService.getAllUsersAccounts(1L);
+        //RetrofitGenericCallBackImpl<AccountCommand> accountCommandRetrofitGenericCallBack = new RetrofitGenericCallBackImpl<>();
+        /*retrofitAPIService.getAllUsersAccounts(1L, new RetrofitGenericCallBack<AccountCommand>() {
+            @Override
+            public List<AccountCommand> setElements(List<AccountCommand> elements) {
+                System.out.println("The list: " + elements.size());
+                return elements;
+            }
+        });*/
         System.out.println("The size of accounts " + accounts.size());
     }
 }
