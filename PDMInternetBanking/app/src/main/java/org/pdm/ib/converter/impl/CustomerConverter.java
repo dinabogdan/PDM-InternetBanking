@@ -4,7 +4,7 @@ import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.converter.Converter;
 import org.pdm.ib.model.UserProfile;
 
-public class CustomerConverter implements Converter<CustomerCommand, UserProfile> {
+public final class CustomerConverter implements Converter<CustomerCommand, UserProfile> {
 
     @Override
     public UserProfile convertToEntity(CustomerCommand customerCommand) {

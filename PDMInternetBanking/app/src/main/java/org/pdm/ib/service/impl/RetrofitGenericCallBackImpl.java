@@ -10,9 +10,8 @@ public class RetrofitGenericCallBackImpl<T> implements RetrofitGenericCallBack {
     private List<T> elementsToSet;
 
     @Override
-    public List<T> setElements(List elements) {
+    public void setElements(List elements) {
         this.elementsToSet = elements;
-        return elements;
     }
 
     public List<T> getElements() {

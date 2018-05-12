@@ -27,15 +27,27 @@ public class FragmentTotalAmount extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Double balance = 0.0;
-        for (Account account : accountService.getAccounts()) {
-            if (account.getBalance() != null) {
-                balance += account.getBalance().getAmount();
+        final TextView textViewTotalAmount = view.findViewById(R.id.text_view_total_amount);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Double balance = 0.0;
+                for (Account account : accountService.getAccounts(1L)) {
+                    if (account.getBalance() != null) {
+                        balance += account.getBalance().getAmount();
+                    }
+                }
+
+                final Double balanceResult = balance;
+                System.out.println("############################## -> " + balanceResult);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textViewTotalAmount.setText(getResources().getString(R.string.balance_placeholder, balanceResult));
+                    }
+                });
             }
-        }
-
-        TextView textViewTotalAmount = view.findViewById(R.id.text_view_total_amount);
-
-        textViewTotalAmount.setText(getResources().getString(R.string.balance_placeholder, balance));
+        }).start();
     }
 }

@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface RetrofitGenericCallBack<T> {
 
-    List<T> setElements(List<T> elements);
+    void setElements(List<T> elements);
 }

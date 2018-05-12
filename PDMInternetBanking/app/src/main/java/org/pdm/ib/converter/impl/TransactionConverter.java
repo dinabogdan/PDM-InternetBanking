@@ -4,7 +4,7 @@ import org.pdm.ib.command.TransactionCommand;
 import org.pdm.ib.converter.Converter;
 import org.pdm.ib.model.Transaction;
 
-public class TransactionConverter implements Converter<TransactionCommand, Transaction> {
+public final class TransactionConverter implements Converter<TransactionCommand, Transaction> {
 
     @Override
     public Transaction convertToEntity(TransactionCommand transactionCommand) {

@@ -1,15 +1,23 @@
 package org.pdm.ib.service.impl;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import org.pdm.ib.command.AccountCommand;
+import org.pdm.ib.converter.impl.AccountConverter;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.retrofit.RetrofitAPIService;
 import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.JsonConverterService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountServiceImpl implements AccountService {
 
     private RetrofitAPIService retrofitAPIService;
+    private AccountConverter accountConverter;
 
     private String data =
             "[" +
@@ -23,34 +31,43 @@ public class AccountServiceImpl implements AccountService {
     public AccountServiceImpl() {
         this.jsonConverterService = new JsonConverterServiceImpl();
         this.retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
+        this.accountConverter = AccountConverter.anAccountConverter();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public List<Account> getAccounts() {
-        return jsonConverterService.fromJsonArray(data, Account.class);
+    public List<Account> getAccounts(Long customerId) {
+        List<AccountCommand> accountCommands = retrofitAPIService.getAllUsersAccounts(customerId);
+        List<Account> accounts  = accountCommands.stream()
+                .map(a -> accountConverter.convertToEntity(a))
+                .collect(Collectors.toList());
+        return accounts;
     }
 
     /**
      * TODO: change this
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Account getCurrentAccount() {
-        return getAccounts().get(0);
+        return getAccounts(1L).get(0);
     }
 
     /**
      * TODO: change this
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Account getSavingsAccount() {
-        return getAccounts().get(1);
+        return getAccounts(1L).get(1);
     }
 
     /**
      * TODO: change this
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Account getCreditAccount() {
-        return getAccounts().get(2);
+        return getAccounts(1L).get(2);
     }
 }

@@ -26,6 +26,6 @@ public class FragmentContentHome extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        AccountContextHolder.setCurrentAccount(accountService.getCurrentAccount());
+        //AccountContextHolder.setCurrentAccount(accountService.getCurrentAccount());
     }
 }

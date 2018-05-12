@@ -4,11 +4,12 @@ import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.converter.Converter;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.AccountBalance;
+import org.pdm.ib.model.enums.AccountType;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class AccountConverter implements Converter<AccountCommand, Account> {
+public final class AccountConverter implements Converter<AccountCommand, Account> {
 
     @Override
     public Account convertToEntity(AccountCommand accountCommand) {
@@ -17,8 +18,8 @@ public class AccountConverter implements Converter<AccountCommand, Account> {
         accountBalance.setAmount(accountCommand.balance.doubleValue());
         accountBalance.setMonth(new Date());
         account.setBalance(accountBalance);
-        account.setTitle(accountCommand.accountType.getValue());
-        account.setType(accountCommand.accountType);
+        account.setTitle(AccountType.CURRENT.getValue());
+        account.setType(AccountType.CURRENT);
         return account;
     }
 
@@ -26,7 +27,15 @@ public class AccountConverter implements Converter<AccountCommand, Account> {
     public AccountCommand convertToCommand(Account account) {
         return new AccountCommand.Builder()
                 .withBalance(BigDecimal.valueOf(account.getBalance().getAmount()))
-                .withAccountType(account.getType())
+                //.withAccountType(account.getType())
                 .build();
+    }
+
+    private AccountConverter() {
+
+    }
+
+    public final static AccountConverter anAccountConverter() {
+        return new AccountConverter();
     }
 }

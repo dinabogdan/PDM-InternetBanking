@@ -3,6 +3,7 @@ package org.pdm.ib.command;
 import com.google.gson.annotations.SerializedName;
 
 import org.pdm.ib.model.enums.AccountType;
+import org.pdm.ib.model.enums.AcctType;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class AccountCommand {
     @SerializedName("balance")
     public BigDecimal balance;
     @SerializedName("accountType")
-    public AccountType accountType;
+    public AcctType accountType;
     @SerializedName("openDate")
     public Date openDate;
     @SerializedName("customer")
@@ -27,7 +28,9 @@ public class AccountCommand {
     @SerializedName("receivers")
     public List<TransactionCommand> receivers;
 
-    protected AccountCommand(Long id, Integer accountNumber, BigDecimal balance, AccountType accountType, Date openDate, CustomerCommand customerCommand, List<TransactionCommand> payers, List<TransactionCommand> receivers) {
+    protected AccountCommand(Long id, Integer accountNumber, BigDecimal balance,
+                             AcctType accountType, Date openDate, CustomerCommand customerCommand,
+                             List<TransactionCommand> payers, List<TransactionCommand> receivers) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.balance = balance;
@@ -54,7 +57,7 @@ public class AccountCommand {
         private Long id;
         private Integer accountNumber;
         private BigDecimal balance;
-        private AccountType accountType;
+        private AcctType accountType;
         private Date openDate;
         private CustomerCommand customerCommand;
         private List<TransactionCommand> payers;
@@ -78,7 +81,7 @@ public class AccountCommand {
             return this;
         }
 
-        public Builder withAccountType(AccountType val) {
+        public Builder withAccountType(AcctType val) {
             accountType = val;
             return this;
         }

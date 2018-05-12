@@ -78,7 +78,7 @@ public class AccountBalanceWidget extends AppWidgetProvider {
 
     private Double getBalance() {
         Double balance = 0.0;
-        for (Account account : accountService.getAccounts()) {
+        for (Account account : accountService.getAccounts(1L)) {
             if (account.getBalance() != null) {
                 balance += account.getBalance().getAmount();
             }
