@@ -12,20 +12,16 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private AuthenticationHolder authenticationHolder = AuthenticationHolderConfig.getAuthenticationHolder();
 
-    private static Map<String, UserProfile> userProfiles = new HashMap<>();
-
-    static {
-        userProfiles.put("DUMMY_TOKEN_1", new UserProfile("Alex", "Chihaia"));
-        userProfiles.put("DUMMY_TOKEN_2", new UserProfile("Bogdan", "Dina"));
-        userProfiles.put("DUMMY_TOKEN_3", new UserProfile("Sebi", "Burchi"));
-    }
-
     @Override
     public UserProfile getProfile() {
-//        String accessToken = authenticationHolder.getAuthentication().getAccessToken();
-        String accessToken = "DUMMY_TOKEN_1";
-
+        if (authenticationHolder.getAuthentication() != null) {
+            return authenticationHolder.getUserProfile();
+        }
         //ignore null check
-        return userProfiles.get(accessToken);
+        return null;
+    }
+
+    public static UserProfileServiceImpl anUserProfileInstance() {
+        return new UserProfileServiceImpl();
     }
 }

@@ -62,9 +62,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View header = navigationView.getHeaderView(0);
 
         TextView textViewUserDetails = header.findViewById(R.id.textViewUserDetails);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserProfile profile = userService.getProfile();
+                HomeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textViewUserDetails.setText(getResources().getString(R.string.user_details_placeholder, profile.getLastName(), profile.getFirstName()));
+                    }
+                });
+            }
+        }).start();
 
-        UserProfile profile = userService.getProfile();
-        textViewUserDetails.setText(getResources().getString(R.string.user_details_placeholder, profile.getLastName(), profile.getFirstName()));
+        /*UserProfile profile = userService.getProfile();*/
 
         LinearLayout linearLayoutChooseAccount = header.findViewById(R.id.linearLayoutChooseAccount);
         linearLayoutChooseAccount.setOnClickListener(new NavigationAccountChangeClickListener(getApplicationContext(), navigationView));

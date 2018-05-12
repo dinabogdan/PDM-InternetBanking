@@ -13,6 +13,7 @@ public class AuthServiceImpl implements AuthService {
 
     private static AuthenticationHolder authenticationHolder = AuthenticationHolderConfig.getAuthenticationHolder();
     private RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
+    private UserProfileServiceImpl userProfileService = UserProfileServiceImpl.anUserProfileInstance();
 
     @Override
     public boolean login(String username, String password) {
@@ -32,6 +33,7 @@ public class AuthServiceImpl implements AuthService {
                 if (userProfile != null) {
                     UserCredentials userCredentials = new UserCredentials(username, password, userProfile.getAccessToken());
                     authenticationHolder.storeAuthentication(userCredentials);
+                    authenticationHolder.setUserProfile(userProfile);
                 }
             }
         }).start();
