@@ -3,6 +3,8 @@ package org.pdm.ib.retrofit;
 import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
+import org.pdm.ib.command.UserAuthCommand;
+import org.pdm.ib.model.UserProfile;
 
 import java.io.IOException;
 import java.util.List;
@@ -105,6 +107,23 @@ public class RetrofitAPIService {
         Call<TransactionCommand> call = retrofitAPIInteface.getSpecificTransactionForAcctNo(customerId, accountNo, transactionId);
         try {
             return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public UserProfile authorizeUser(UserAuthCommand userAuthCommand) {
+        Call<UserAuthCommand> call = retrofitAPIInteface.authorizeUser(userAuthCommand);
+        try {
+            UserAuthCommand body = call.execute().body();
+            if (body.getAuthorized() == true) {
+                UserProfile userProfile = new UserProfile();
+                userProfile.setLastName(body.getLastName());
+                userProfile.setFirstName(body.getFirstName());
+                userProfile.setReferenceId(body.getReferenceId());
+                return userProfile;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

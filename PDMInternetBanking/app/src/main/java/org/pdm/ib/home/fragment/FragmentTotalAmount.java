@@ -40,7 +40,6 @@ public class FragmentTotalAmount extends Fragment {
                 }
 
                 final Double balanceResult = balance;
-                System.out.println("############################## -> " + balanceResult);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

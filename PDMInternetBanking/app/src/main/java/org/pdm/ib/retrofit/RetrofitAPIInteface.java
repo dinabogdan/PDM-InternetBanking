@@ -3,6 +3,7 @@ package org.pdm.ib.retrofit;
 import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
+import org.pdm.ib.command.UserAuthCommand;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Transaction;
 
@@ -42,4 +43,7 @@ public interface RetrofitAPIInteface {
 
     @GET("/customers/{customerId}/accountsByAcctNo/{accountNumber}/transactions/{transactionId}")
     Call<TransactionCommand> getSpecificTransactionForAcctNo(@Path("customerId") Long customerId, @Path("accountNumber") Long accountNumber, @Path("transactionId") Long transactionId);
+
+    @POST("/authorize")
+    Call<UserAuthCommand> authorizeUser(@Body UserAuthCommand user);
 }
