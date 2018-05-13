@@ -38,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> getAccounts(Long customerId) {
         List<AccountCommand> accountCommands = retrofitAPIService.getAllUsersAccounts(customerId);
-        List<Account> accounts  = accountCommands.stream()
+        List<Account> accounts = accountCommands.stream()
                 .map(a -> accountConverter.convertToEntity(a))
                 .collect(Collectors.toList());
         return accounts;
@@ -50,6 +50,11 @@ public class AccountServiceImpl implements AccountService {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Account getCurrentAccount() {
+        /*List<AccountCommand> accountCommands = retrofitAPIService.getAllUsersAccounts(1L);
+        List<Account> accounts = accountCommands.stream()
+                .map(a -> accountConverter.convertToEntity(a))
+                .collect(Collectors.toList());
+        return accounts.get(0);*/
         return getAccounts(1L).get(0);
     }
 

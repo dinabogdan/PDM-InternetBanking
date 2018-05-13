@@ -134,8 +134,7 @@ public class RetrofitAPIService {
     public List<AccountBalanceCommand> getBalances() {
         Call<List<AccountBalanceCommand>> call = retrofitAPIInteface.getBalances();
         try {
-            List<AccountBalanceCommand> commands = call.execute().body();
-            return commands;
+            return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }

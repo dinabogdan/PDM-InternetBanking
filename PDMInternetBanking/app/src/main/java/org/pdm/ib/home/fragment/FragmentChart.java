@@ -43,17 +43,17 @@ public class FragmentChart extends Fragment {
         LineChart accountEvolutionChart = view.findViewById(R.id.chart_account_evolution);
         TextView textView = view.findViewById(R.id.account_chart_label);
 
-        //new Thread(new Runnable() {
-          //  @Override
-            //public void run() {
-              //  getActivity().runOnUiThread(new Runnable() {
-               //     @Override
-                 //   public void run() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
                         AccountContextHolder.addOnAccountChangedListener(new OnAccountChanged(accountEvolutionChart, textView, accountBalanceService));
-                   // }
-                //});
-  //          }
-//        }).start();
+                    }
+                });
+            }
+        }).start();
 
     }
 
@@ -75,18 +75,18 @@ public class FragmentChart extends Fragment {
                     chart.getContext(),
                     event.getAccount().getType(),
                     R.string.account_chart_title_placeholder));
-            //new Thread(new Runnable() {
-           //     @Override
-             //   public void run() {
-             //       FragmentChart.this.getActivity().runOnUiThread(new Runnable() {
-             //           @Override
-               //         public void run() {
-                            List<AccountBalance> data = accountBalanceService.getLastYearAccountBalance(event.getAccount());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    List<AccountBalance> data = accountBalanceService.getLastYearAccountBalance(event.getAccount());
+                    FragmentChart.this.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             addChartData(data);
-                 //       }
-                   // });
-               // }
-            //}).start();
+                        }
+                    });
+                }
+            }).start();
 
 
         }

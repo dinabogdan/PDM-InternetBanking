@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import org.pdm.ib.R;
 import org.pdm.ib.context.AccountContextHolder;
+import org.pdm.ib.model.Account;
 import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.impl.AccountServiceImpl;
 
@@ -26,6 +27,19 @@ public class FragmentContentHome extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //AccountContextHolder.setCurrentAccount(accountService.getCurrentAccount());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    Account account = accountService.getCurrentAccount();
+
+                    @Override
+                    public void run() {
+                        AccountContextHolder.setCurrentAccount(account);
+                    }
+                });
+            }
+        }).start();
+
     }
 }

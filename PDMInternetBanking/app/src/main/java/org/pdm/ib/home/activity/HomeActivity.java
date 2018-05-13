@@ -132,7 +132,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             //choose account navigation menu items
             case R.id.nav_menu_item_current_account:
-                AccountContextHolder.setCurrentAccount(accountService.getCurrentAccount());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        HomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AccountContextHolder.setCurrentAccount(accountService.getCurrentAccount());
+                            }
+                        });
+                    }
+                }).start();
+
                 break;
             case R.id.nav_menu_item_savings_account:
                 AccountContextHolder.setCurrentAccount(accountService.getSavingsAccount());
