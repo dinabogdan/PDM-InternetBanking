@@ -69,7 +69,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 HomeActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textViewUserDetails.setText(getResources().getString(R.string.user_details_placeholder, profile.getLastName(), profile.getFirstName()));
+                        if (profile != null) {
+                            textViewUserDetails.setText(getResources().getString(R.string.user_details_placeholder, profile.getLastName(), profile.getFirstName()));
+                        }
                     }
                 });
             }

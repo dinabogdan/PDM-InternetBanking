@@ -27,8 +27,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.pdm.ib.R;
+import org.pdm.ib.auth.AuthenticationHolderConfig;
 import org.pdm.ib.home.activity.HomeActivity;
 import org.pdm.ib.service.AuthService;
 import org.pdm.ib.service.impl.AuthServiceImpl;
@@ -302,7 +304,9 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+
             return authService.login(mEmail, mPassword);
+
         }
 
         @Override
@@ -310,11 +314,12 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
+            if (AuthenticationHolderConfig.getAuthenticationHolder().getAuthentication() != null) {
                 openHomeActivity();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+               /* mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();*/
+                Toast.makeText(getApplicationContext(), R.string.error_incorrect_password, Toast.LENGTH_SHORT).show();
             }
         }
 

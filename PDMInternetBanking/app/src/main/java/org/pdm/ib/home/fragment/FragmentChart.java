@@ -87,8 +87,6 @@ public class FragmentChart extends Fragment {
                     });
                 }
             }).start();
-
-
         }
 
         private void addChartData(List<AccountBalance> data) {

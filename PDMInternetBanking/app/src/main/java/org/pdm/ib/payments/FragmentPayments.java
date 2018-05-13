@@ -83,7 +83,19 @@ public class FragmentPayments extends Fragment {
         discardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), HomeActivity.class));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(v.getContext(), HomeActivity.class));
+                            }
+                        });
+                    }
+                }).start();
+
             }
         });
 
