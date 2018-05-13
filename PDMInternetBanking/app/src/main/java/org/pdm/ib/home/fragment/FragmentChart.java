@@ -3,6 +3,7 @@ package org.pdm.ib.home.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManagerNonConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +43,21 @@ public class FragmentChart extends Fragment {
         LineChart accountEvolutionChart = view.findViewById(R.id.chart_account_evolution);
         TextView textView = view.findViewById(R.id.account_chart_label);
 
-        AccountContextHolder.addOnAccountChangedListener(new OnAccountChanged(accountEvolutionChart, textView, accountBalanceService));
+        //new Thread(new Runnable() {
+          //  @Override
+            //public void run() {
+              //  getActivity().runOnUiThread(new Runnable() {
+               //     @Override
+                 //   public void run() {
+                        AccountContextHolder.addOnAccountChangedListener(new OnAccountChanged(accountEvolutionChart, textView, accountBalanceService));
+                   // }
+                //});
+  //          }
+//        }).start();
+
     }
 
-    private static class OnAccountChanged implements OnAccountChangedEventListener {
+    private class OnAccountChanged implements OnAccountChangedEventListener {
 
         private LineChart chart;
         private TextView accountLabel;
@@ -63,10 +75,20 @@ public class FragmentChart extends Fragment {
                     chart.getContext(),
                     event.getAccount().getType(),
                     R.string.account_chart_title_placeholder));
+            //new Thread(new Runnable() {
+           //     @Override
+             //   public void run() {
+             //       FragmentChart.this.getActivity().runOnUiThread(new Runnable() {
+             //           @Override
+               //         public void run() {
+                            List<AccountBalance> data = accountBalanceService.getLastYearAccountBalance(event.getAccount());
+                            addChartData(data);
+                 //       }
+                   // });
+               // }
+            //}).start();
 
-            List<AccountBalance> data = accountBalanceService.getLastYearAccountBalance(event.getAccount());
 
-            addChartData(data);
         }
 
         private void addChartData(List<AccountBalance> data) {

@@ -75,8 +75,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         }).start();
 
-        /*UserProfile profile = userService.getProfile();*/
-
         LinearLayout linearLayoutChooseAccount = header.findViewById(R.id.linearLayoutChooseAccount);
         linearLayoutChooseAccount.setOnClickListener(new NavigationAccountChangeClickListener(getApplicationContext(), navigationView));
     }

@@ -1,5 +1,6 @@
 package org.pdm.ib.retrofit;
 
+import org.pdm.ib.command.AccountBalanceCommand;
 import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
@@ -46,4 +47,7 @@ public interface RetrofitAPIInteface {
 
     @POST("/authorize")
     Call<UserAuthCommand> authorizeUser(@Body UserAuthCommand user);
+
+    @GET("/balances")
+    Call<List<AccountBalanceCommand>> getBalances();
 }

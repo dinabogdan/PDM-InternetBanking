@@ -1,5 +1,6 @@
 package org.pdm.ib.retrofit;
 
+import org.pdm.ib.command.AccountBalanceCommand;
 import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
@@ -130,4 +131,14 @@ public class RetrofitAPIService {
         return null;
     }
 
+    public List<AccountBalanceCommand> getBalances() {
+        Call<List<AccountBalanceCommand>> call = retrofitAPIInteface.getBalances();
+        try {
+            List<AccountBalanceCommand> commands = call.execute().body();
+            return commands;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
