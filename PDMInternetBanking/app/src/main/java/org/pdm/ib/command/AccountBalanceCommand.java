@@ -9,7 +9,7 @@ public class AccountBalanceCommand {
 
     @SerializedName("month")
     private Date month;
-    @SerializedName("amoun")
+    @SerializedName("amount")
     private BigDecimal amount;
 
     public AccountBalanceCommand(Date month, BigDecimal amount) {

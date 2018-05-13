@@ -40,10 +40,14 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     public List<AccountBalance> getLastYearAccountBalance(Account account) {
         List<AccountBalanceCommand> commands = retrofit.getBalances();
         List<AccountBalance> accountBalances = new ArrayList<>();
-        commands.stream().forEach(c -> {
+        for (AccountBalanceCommand command : commands) {
+            AccountBalance accountBalance = accountBalanceConverter.convertToEntity(command);
+            accountBalances.add(accountBalance);
+        }
+       /* commands.stream().forEach(c -> {
             AccountBalance accountBalance = accountBalanceConverter.convertToEntity(c);
             accountBalances.add(accountBalance);
-        });
+        });*/
         return accountBalances;
         //return jsonConverterService.fromJsonArray(data, AccountBalance.class);
     }
