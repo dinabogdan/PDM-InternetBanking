@@ -17,9 +17,9 @@ public class AuthServiceImpl implements AuthService {
     private UserProfileServiceImpl userProfileService = UserProfileServiceImpl.anUserProfileInstance();
 
     @Override
-    public boolean login(String username, String password) {
+    public void login(String username, String password) {
         if (authenticationHolder.isAuthenticated()) {
-            return true;
+            return;
         }
 
         new Thread(new Runnable() {
@@ -38,6 +38,6 @@ public class AuthServiceImpl implements AuthService {
                 }
             }
         }).start();
-        return authenticationHolder.getAuthentication() == null;
+        //return authenticationHolder.getAuthentication() == null;
     }
 }

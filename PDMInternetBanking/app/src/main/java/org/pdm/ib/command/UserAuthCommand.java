@@ -54,7 +54,7 @@ public class UserAuthCommand {
         this.isAuthorized = isAuthorized;
     }
 
-    protected UserAuthCommand(String username, String password) {
+    public UserAuthCommand(String username, String password) {
         this.username = username;
         this.password = password;
     }

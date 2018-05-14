@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.pdm.ib.R;
+import org.pdm.ib.auth.AuthenticationHolderConfig;
 import org.pdm.ib.context.AccountContextHolder;
 import org.pdm.ib.home.fragment.FragmentContentHome;
 import org.pdm.ib.map.FindATMActivity;
@@ -65,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserProfile profile = userService.getProfile();
+                UserProfile profile = AuthenticationHolderConfig.getAuthenticationHolder().getUserProfile();
                 HomeActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

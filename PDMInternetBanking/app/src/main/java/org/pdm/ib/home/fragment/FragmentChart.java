@@ -49,6 +49,9 @@ public class FragmentChart extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        for (int i = 0; i < AccountContextHolder.accountChangedEventListeners().size() - 1; i++) {
+                            AccountContextHolder.accountChangedEventListeners().remove(i);
+                        }
                         AccountContextHolder.addOnAccountChangedListener(new OnAccountChanged(accountEvolutionChart, textView, accountBalanceService));
                     }
                 });
@@ -79,12 +82,16 @@ public class FragmentChart extends Fragment {
                 @Override
                 public void run() {
                     List<AccountBalance> data = accountBalanceService.getLastYearAccountBalance(event.getAccount());
-                    FragmentChart.this.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            addChartData(data);
-                        }
-                    });
+                    if (FragmentChart.this.getActivity() != null) {
+                        FragmentChart.this.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                addChartData(data);
+                            }
+                        });
+                    } else {
+                        return;
+                    }
                 }
             }).start();
         }

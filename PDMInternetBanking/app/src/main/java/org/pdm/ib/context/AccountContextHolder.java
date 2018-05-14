@@ -17,6 +17,10 @@ public class AccountContextHolder {
         return currentAccount;
     }
 
+    public static List<OnAccountChangedEventListener> accountChangedEventListeners() {
+        return accountChangedListeners;
+    }
+
     public static void setCurrentAccount(Account account) {
         currentAccount = account;
 
