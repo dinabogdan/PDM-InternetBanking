@@ -1,6 +1,10 @@
 package org.pdm.ib.home.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.View;
@@ -40,8 +44,34 @@ public class NavigationAccountChangeClickListener implements View.OnClickListene
     }
 
     private boolean isArrowDown(ImageView view) {
-        return view.getDrawable().getConstantState()
-                .equals(context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_white_18px).getConstantState());
+        Drawable.ConstantState viewState = view.getDrawable().getConstantState();
+        Drawable.ConstantState arrowDownState = context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_white_18px).getConstantState();
+
+        return (viewState != null && arrowDownState != null && viewState.equals(arrowDownState)) ||
+                getBitmap(view.getDrawable()).sameAs(getBitmap(context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_white_18px)));
+    }
+
+    private static Bitmap getBitmap(Drawable drawable) {
+        Bitmap result;
+
+        if (drawable instanceof BitmapDrawable) {
+            result = ((BitmapDrawable) drawable).getBitmap();
+        } else {
+            int width = drawable.getIntrinsicWidth();
+            int height = drawable.getIntrinsicHeight();
+            if (width <= 0) {
+                width = 1;
+            }
+            if (height <= 0) {
+                height = 1;
+            }
+
+            result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+        }
+        return result;
     }
 
     private void showAccountsMenu() {
