@@ -22,6 +22,7 @@ import org.pdm.ib.auth.AuthenticationHolderConfig;
 import org.pdm.ib.context.AccountContextHolder;
 import org.pdm.ib.home.fragment.FragmentContentHome;
 import org.pdm.ib.map.FindATMActivity;
+import org.pdm.ib.model.Account;
 import org.pdm.ib.model.UserProfile;
 import org.pdm.ib.payments.FragmentPayments;
 import org.pdm.ib.service.AccountService;
@@ -138,18 +139,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        Account currentAccount = accountService.getCurrentAccount();
                         HomeActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                AccountContextHolder.setCurrentAccount(accountService.getCurrentAccount());
+                                AccountContextHolder.setCurrentAccount(currentAccount);
                             }
                         });
                     }
                 }).start();
-
                 break;
             case R.id.nav_menu_item_savings_account:
-                AccountContextHolder.setCurrentAccount(accountService.getSavingsAccount());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Account savingsAccount = accountService.getSavingsAccount();
+                        HomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AccountContextHolder.setCurrentAccount(savingsAccount);
+                            }
+                        });
+                    }
+                }).start();
                 break;
             case R.id.nav_menu_item_credit_account:
                 AccountContextHolder.setCurrentAccount(accountService.getCreditAccount());
