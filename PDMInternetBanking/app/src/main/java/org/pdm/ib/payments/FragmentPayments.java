@@ -14,12 +14,22 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.pdm.ib.R;
+import org.pdm.ib.context.AccountContextHolder;
 import org.pdm.ib.home.activity.HomeActivity;
+import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Payment;
+import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.PaymentsService;
+import org.pdm.ib.service.impl.AccountServiceImpl;
 import org.pdm.ib.service.impl.PaymentsServiceImpl;
+import org.pdm.ib.util.Validation;
+
+import java.math.BigDecimal;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.pdm.ib.payments.SavedPaymentListDialogFragment.SELECT_PAYMENT_NO_PAYMENT;
 import static org.pdm.ib.payments.SavedPaymentListDialogFragment.SELECT_PAYMENT_OK;
@@ -34,6 +44,8 @@ public class FragmentPayments extends Fragment {
     private EditText editTextReceiverIban;
     private EditText editTextReceiverName;
     private CheckBox checkBoxSavePayment;
+    static AtomicBoolean atomicBoolean = new AtomicBoolean(true);
+
 
     private final PaymentsService paymentsService = new PaymentsServiceImpl();
 
@@ -102,12 +114,13 @@ public class FragmentPayments extends Fragment {
         proceedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isValidForm()) return;
-
-                paymentsService.makePayment(buildPayment(), getContext());
-
-                Snackbar.make(v, R.string.payments_success_message, 2000).show();
-                startActivity(new Intent(v.getContext(), HomeActivity.class));
+                if (!isValidForm()) {
+                    return;
+                } else if (isValidForm() == true) {
+                    paymentsService.makePayment(buildPayment(), getContext());
+                    Snackbar.make(v, R.string.payments_success_message, 2000).show();
+                    startActivity(new Intent(v.getContext(), HomeActivity.class));
+                }
             }
         });
 
@@ -144,7 +157,69 @@ public class FragmentPayments extends Fragment {
     }
 
     private boolean isValidForm() {
-        return true;
+        AccountService accountService = new AccountServiceImpl();
+        String amount = editTextAmount.getText().toString();
+        Thread thread = null;
+        if (spinnerChooseAccount.getSelectedItem().toString().equals(getResources().getString(R.string.current_account_title))) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Account currentAccount = accountService.getCurrentAccount();
+                    boolean validateAmount = Validation.validateAmount(amount, BigDecimal.valueOf(currentAccount.getBalance().getAmount()));
+                    if (!validateAmount) {
+                        atomicBoolean.set(false);
+                    }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (validateAmount == false) {
+                                Toast.makeText(getContext(), R.string.payments_incorrect_amount, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+            });
+            thread.start();
+        } else if (spinnerChooseAccount.getSelectedItem().toString().equals(getResources().getString(R.string.savings_account_title))) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Account savingsAccount = accountService.getSavingsAccount();
+                    boolean validateAmount = Validation.validateAmount(amount, BigDecimal.valueOf(savingsAccount.getBalance().getAmount()));
+                    if (!validateAmount) {
+                        atomicBoolean.set(false);
+                    }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (atomicBoolean.get() == false) {
+                                Toast.makeText(getContext(), R.string.payments_incorrect_amount, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+            });
+            thread.start();
+        }
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String receiverIban = editTextReceiverIban.getText().toString();
+        if (!Validation.validateIban(receiverIban)) {
+            Toast.makeText(getContext(), R.string.error_incorrect_iban, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        String receiverName = editTextReceiverName.getText().toString();
+        if (receiverName == null || receiverName.isEmpty()) {
+            Toast.makeText(getContext(), R.string.error_incorrect_receiver_name, Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return atomicBoolean.get();
     }
 
     private void populateFormWithPayment(Payment payment) {

@@ -1,5 +1,7 @@
 package org.pdm.ib;
 
+import org.apache.commons.validator.routines.IBANValidator;
+import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
 import org.json.JSONException;
 import org.junit.Test;
 import org.pdm.ib.command.AccountCommand;
@@ -76,5 +78,12 @@ public class JsonConverterServiceTest {
             }
         });*/
         System.out.println("The size of accounts " + accounts.size());
+    }
+
+    @Test
+    public void test_apache_iban_validator() {
+        IBANCheckDigit ibanCheckDigit = new IBANCheckDigit();
+        boolean ro82VBBU25113T153373 = ibanCheckDigit.isValid("RO82VBBU25113T153373");
+        System.out.println(ro82VBBU25113T153373);
     }
 }

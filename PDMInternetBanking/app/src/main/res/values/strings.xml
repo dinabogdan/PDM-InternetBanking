@@ -59,6 +59,9 @@
     <string name="payments_save">Save this payment in MyPayments for future use</string>
     <string name="payments_receiver_account">Receiver account</string>
     <string name="payments_receiver_name">Receiver name</string>
+    <string name="payments_incorrect_amount">The amount that was introduced is greater than account balance</string>
+    <string name="error_incorrect_iban">The IBAN that was introduced is invalid</string>
+    <string name="error_incorrect_receiver_name">The name of the receiver was not introduced</string>
     <string name="payments_discard_button">Discard</string>
     <string name="payments_save_button">Proceed</string>
     <string name="payments_success_message">Payment successfully saved</string>
