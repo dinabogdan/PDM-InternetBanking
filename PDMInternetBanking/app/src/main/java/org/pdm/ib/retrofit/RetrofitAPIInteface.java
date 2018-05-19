@@ -8,6 +8,7 @@ import org.pdm.ib.command.UserAuthCommand;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Transaction;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,4 +51,7 @@ public interface RetrofitAPIInteface {
 
     @GET("/balances")
     Call<List<AccountBalanceCommand>> getBalances();
+
+    @POST("/update-balance/{transaction}")
+    Call<Object> performTransaction(@Body AccountCommand account, @Path("transaction") BigDecimal transactionAmount);
 }

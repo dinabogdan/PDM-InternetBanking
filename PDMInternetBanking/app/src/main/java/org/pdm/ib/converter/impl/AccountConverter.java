@@ -23,6 +23,7 @@ public final class AccountConverter implements Converter<AccountCommand, Account
         account.setBalance(accountBalance);
         account.setTitle(convertAccountTitle(accountCommand.accountType));
         account.setType(accountTypeConverter.convertToCommand(accountCommand.accountType));
+        account.setAccountNo(accountCommand.accountNumber);
         return account;
     }
 
@@ -30,7 +31,8 @@ public final class AccountConverter implements Converter<AccountCommand, Account
     public AccountCommand convertToCommand(Account account) {
         return new AccountCommand.Builder()
                 .withBalance(BigDecimal.valueOf(account.getBalance().getAmount()))
-                //.withAccountType(account.getType())
+                .withAccountType(accountTypeConverter.convertToEntity(account.getType()))
+                .withAccountNumber(account.getAccountNo())
                 .build();
     }
 

@@ -8,6 +8,7 @@ import org.pdm.ib.command.UserAuthCommand;
 import org.pdm.ib.model.UserProfile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import retrofit2.Call;
@@ -139,5 +140,14 @@ public class RetrofitAPIService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void performTransaction(AccountCommand accountCommand, BigDecimal transaction) {
+        Call<Object> call = retrofitAPIInteface.performTransaction(accountCommand, transaction);
+        try {
+            call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

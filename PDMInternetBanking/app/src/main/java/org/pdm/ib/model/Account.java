@@ -7,6 +7,15 @@ public class Account {
     private String title;
     private AccountType type;
     private AccountBalance balance;
+    private Integer accountNo;
+
+    public Integer getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(Integer accountNo) {
+        this.accountNo = accountNo;
+    }
 
     public String getTitle() {
         return title;

@@ -17,10 +17,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.pdm.ib.R;
+import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.context.AccountContextHolder;
+import org.pdm.ib.converter.impl.AccountConverter;
 import org.pdm.ib.home.activity.HomeActivity;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Payment;
+import org.pdm.ib.retrofit.RetrofitAPIService;
 import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.PaymentsService;
 import org.pdm.ib.service.impl.AccountServiceImpl;
@@ -168,6 +171,12 @@ public class FragmentPayments extends Fragment {
                     boolean validateAmount = Validation.validateAmount(amount, BigDecimal.valueOf(currentAccount.getBalance().getAmount()));
                     if (!validateAmount) {
                         atomicBoolean.set(false);
+                    } else {
+                        AccountConverter accountConverter = AccountConverter.anAccountConverter();
+                        AccountCommand accountCommand = accountConverter.convertToCommand(currentAccount);
+                        BigDecimal transactionAmount = new BigDecimal(amount);
+                        RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
+                        retrofitAPIService.performTransaction(accountCommand, transactionAmount);
                     }
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
