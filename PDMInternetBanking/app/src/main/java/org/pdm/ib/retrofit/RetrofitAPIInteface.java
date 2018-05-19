@@ -53,5 +53,5 @@ public interface RetrofitAPIInteface {
     Call<List<AccountBalanceCommand>> getBalances();
 
     @POST("/update-balance/{transaction}")
-    Call<Object> performTransaction(@Body AccountCommand account, @Path("transaction") BigDecimal transactionAmount);
+    Call<Void> performTransaction(@Body AccountCommand account, @Path("transaction") BigDecimal transactionAmount);
 }

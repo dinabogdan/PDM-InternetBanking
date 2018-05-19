@@ -142,12 +142,13 @@ public class RetrofitAPIService {
         return null;
     }
 
-    public void performTransaction(AccountCommand accountCommand, BigDecimal transaction) {
-        Call<Object> call = retrofitAPIInteface.performTransaction(accountCommand, transaction);
+    public Void performTransaction(AccountCommand accountCommand, BigDecimal transaction) {
+        Call<Void> call = retrofitAPIInteface.performTransaction(accountCommand, transaction);
         try {
-            call.execute().body();
+            return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

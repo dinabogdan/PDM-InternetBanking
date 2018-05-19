@@ -120,6 +120,24 @@ public class FragmentPayments extends Fragment {
                 if (!isValidForm()) {
                     return;
                 } else if (isValidForm() == true) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AccountService accountService = new AccountServiceImpl();
+                            Account account = null;
+                            if (spinnerChooseAccount.getSelectedItem().toString().equals(getResources().getString(R.string.current_account_title))) {
+                                account = accountService.getCurrentAccount();
+                            } else {
+                                account = accountService.getSavingsAccount();
+                            }
+                            String amount = editTextAmount.getText().toString();
+                            AccountConverter accountConverter = AccountConverter.anAccountConverter();
+                            AccountCommand accountCommand = accountConverter.convertToCommand(account);
+                            BigDecimal transactionAmount = new BigDecimal(amount);
+                            RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
+                            retrofitAPIService.performTransaction(accountCommand, transactionAmount);
+                        }
+                    }).start();
                     paymentsService.makePayment(buildPayment(), getContext());
                     Snackbar.make(v, R.string.payments_success_message, 2000).show();
                     startActivity(new Intent(v.getContext(), HomeActivity.class));
@@ -171,12 +189,6 @@ public class FragmentPayments extends Fragment {
                     boolean validateAmount = Validation.validateAmount(amount, BigDecimal.valueOf(currentAccount.getBalance().getAmount()));
                     if (!validateAmount) {
                         atomicBoolean.set(false);
-                    } else {
-                        AccountConverter accountConverter = AccountConverter.anAccountConverter();
-                        AccountCommand accountCommand = accountConverter.convertToCommand(currentAccount);
-                        BigDecimal transactionAmount = new BigDecimal(amount);
-                        RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
-                        retrofitAPIService.performTransaction(accountCommand, transactionAmount);
                     }
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -201,7 +213,7 @@ public class FragmentPayments extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (atomicBoolean.get() == false) {
+                            if (validateAmount == false) {
                                 Toast.makeText(getContext(), R.string.payments_incorrect_amount, Toast.LENGTH_LONG).show();
                             }
                         }
