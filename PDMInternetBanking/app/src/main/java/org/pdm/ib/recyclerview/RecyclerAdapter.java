@@ -8,14 +8,15 @@ import android.widget.TextView;
 
 import org.pdm.ib.R;
 import org.pdm.ib.model.Transaction;
+import org.pdm.ib.model.TxRecyclerView;
 
 import java.util.List;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private List<Transaction> transactions;
+    private List<TxRecyclerView> transactions;
 
-    public RecyclerAdapter(List<Transaction> transactions) {
+    public RecyclerAdapter(List<TxRecyclerView> transactions) {
         this.transactions = transactions;
     }
 
@@ -27,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
-        holder.tvTransactionName.setText(transactions.get(position).getReceiverName());
+        holder.tvTransactionName.setText(transactions.get(position).getName());
         holder.tvTransactionAmount.setText(String.valueOf(transactions.get(position).getAmount()));
     }
 

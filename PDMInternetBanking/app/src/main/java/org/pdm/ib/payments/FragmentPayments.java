@@ -23,6 +23,7 @@ import org.pdm.ib.converter.impl.AccountConverter;
 import org.pdm.ib.home.activity.HomeActivity;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Payment;
+import org.pdm.ib.model.TxRecyclerView;
 import org.pdm.ib.retrofit.RetrofitAPIService;
 import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.PaymentsService;
@@ -33,6 +34,8 @@ import org.pdm.ib.util.Validation;
 import java.math.BigDecimal;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import retrofit2.Retrofit;
 
 import static org.pdm.ib.payments.SavedPaymentListDialogFragment.SELECT_PAYMENT_NO_PAYMENT;
 import static org.pdm.ib.payments.SavedPaymentListDialogFragment.SELECT_PAYMENT_OK;
@@ -120,7 +123,7 @@ public class FragmentPayments extends Fragment {
                 if (!isValidForm()) {
                     return;
                 } else if (isValidForm() == true) {
-                    new Thread(new Runnable() {
+                    Thread firstThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             AccountService accountService = new AccountServiceImpl();
@@ -136,10 +139,33 @@ public class FragmentPayments extends Fragment {
                             AccountConverter accountConverter = AccountConverter.anAccountConverter();
                             AccountCommand accountCommand = accountConverter.convertToCommand(account);
                             BigDecimal transactionAmount = new BigDecimal(amount);
+
                             RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
                             retrofitAPIService.performTransaction(accountCommand, transactionAmount);
+
                         }
-                    }).start();
+                    });
+
+                    Thread secondThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String amount = editTextAmount.getText().toString();
+                            BigDecimal transactionAmount = new BigDecimal(amount);
+                            TxRecyclerView txRecyclerView = new TxRecyclerView();
+                            txRecyclerView.setAmount(transactionAmount);
+                            txRecyclerView.setName(editTextReceiverName.getText().toString());
+                            RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
+                            retrofitAPIService.addTx(txRecyclerView);
+                        }
+                    });
+
+                    firstThread.start();
+                    try {
+                        firstThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    secondThread.start();
                     paymentsService.makePayment(buildPayment(), getContext());
                     Snackbar.make(v, R.string.payments_success_message, 2000).show();
                     startActivity(new Intent(v.getContext(), HomeActivity.class));

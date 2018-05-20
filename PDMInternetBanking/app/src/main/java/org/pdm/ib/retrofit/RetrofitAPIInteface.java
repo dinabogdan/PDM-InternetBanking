@@ -7,6 +7,7 @@ import org.pdm.ib.command.TransactionCommand;
 import org.pdm.ib.command.UserAuthCommand;
 import org.pdm.ib.model.Account;
 import org.pdm.ib.model.Transaction;
+import org.pdm.ib.model.TxRecyclerView;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -54,4 +55,10 @@ public interface RetrofitAPIInteface {
 
     @POST("/update-balance/{transaction}")
     Call<Void> performTransaction(@Body AccountCommand account, @Path("transaction") BigDecimal transactionAmount);
+
+    @GET("/transactions")
+    Call<List<TxRecyclerView>> getTransactions();
+
+    @POST("/transactions")
+    Call<Void> addTx(@Body TxRecyclerView tx);
 }

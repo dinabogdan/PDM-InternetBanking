@@ -5,6 +5,7 @@ import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
 import org.pdm.ib.command.UserAuthCommand;
+import org.pdm.ib.model.TxRecyclerView;
 import org.pdm.ib.model.UserProfile;
 
 import java.io.IOException;
@@ -144,6 +145,26 @@ public class RetrofitAPIService {
 
     public Void performTransaction(AccountCommand accountCommand, BigDecimal transaction) {
         Call<Void> call = retrofitAPIInteface.performTransaction(accountCommand, transaction);
+        try {
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<TxRecyclerView> getTransactions() {
+        Call<List<TxRecyclerView>> call = retrofitAPIInteface.getTransactions();
+        try {
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Void addTx(TxRecyclerView tx) {
+        Call<Void> call = retrofitAPIInteface.addTx(tx);
         try {
             return call.execute().body();
         } catch (IOException e) {

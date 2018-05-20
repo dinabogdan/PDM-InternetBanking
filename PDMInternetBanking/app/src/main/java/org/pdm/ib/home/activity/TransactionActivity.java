@@ -13,7 +13,9 @@ import android.view.MenuItem;
 
 import org.pdm.ib.R;
 import org.pdm.ib.model.Transaction;
+import org.pdm.ib.model.TxRecyclerView;
 import org.pdm.ib.recyclerview.RecyclerAdapter;
+import org.pdm.ib.retrofit.RetrofitAPIService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class TransactionActivity extends AppCompatActivity implements Navigation
     private RecyclerView.LayoutManager layoutManager;
     private List<Transaction> transactions;
     private RecyclerAdapter recyclerAdapter;
+    private final RetrofitAPIService retrofitAPIService = RetrofitAPIService.aRetrofitApiService();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,19 +39,19 @@ public class TransactionActivity extends AppCompatActivity implements Navigation
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        transactions = new ArrayList<>();
-        Transaction tx1 = new Transaction();
-        tx1.setReceiverName("Dina Bogdan");
-        tx1.setAmount(100.0);
-        Transaction tx2 = new Transaction();
-        tx2.setReceiverName("Burchi Sebi");
-        tx2.setAmount(101.0);
-
-        transactions.add(tx1);
-        transactions.add(tx2);
-
-        recyclerAdapter = new RecyclerAdapter(transactions);
-        recyclerView.setAdapter(recyclerAdapter);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<TxRecyclerView> transactions = retrofitAPIService.getTransactions();
+                TransactionActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerAdapter = new RecyclerAdapter(transactions);
+                        recyclerView.setAdapter(recyclerAdapter);
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
