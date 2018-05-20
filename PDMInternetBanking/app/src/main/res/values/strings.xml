@@ -71,4 +71,7 @@
     <string name="widget_btn_new_payment_text">New payment</string>
     <string name="widget_updated_text">Updated:</string>
 
+    <string name="hint_tx_receiver_name">Transaction: </string>
+    <string name="hint_tx_amount">Amount: </string>
+
 </resources>

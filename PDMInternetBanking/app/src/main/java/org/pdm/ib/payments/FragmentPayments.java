@@ -125,9 +125,11 @@ public class FragmentPayments extends Fragment {
                         public void run() {
                             AccountService accountService = new AccountServiceImpl();
                             Account account = null;
-                            if (spinnerChooseAccount.getSelectedItem().toString().equals(getResources().getString(R.string.current_account_title))) {
+                            if (spinnerChooseAccount.getSelectedItem().toString()
+                                    .equals(getResources().getString(R.string.current_account_title))) {
                                 account = accountService.getCurrentAccount();
-                            } else {
+                            } else if (spinnerChooseAccount.getSelectedItem().toString()
+                                    .equals(getResources().getString(R.string.current_account_title))) {
                                 account = accountService.getSavingsAccount();
                             }
                             String amount = editTextAmount.getText().toString();

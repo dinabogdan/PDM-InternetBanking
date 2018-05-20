@@ -131,6 +131,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 intent = new Intent(getApplicationContext(), FindATMActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_transactions:
+                intent = new Intent(getApplicationContext(), TransactionActivity.class);
+                startActivity(intent);
             case R.id.nav_payments:
                 fragmentClass = FragmentPayments.class;
                 break;

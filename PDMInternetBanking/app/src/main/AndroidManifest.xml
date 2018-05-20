@@ -55,6 +55,11 @@
             android:name=".map.FindATMActivity"
             android:label="@string/title_activity_find_atm" />
 
+        <activity
+            android:name=".home.activity.TransactionActivity"
+            android:label="Transaction History"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <receiver android:name=".widget.AccountBalanceWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
