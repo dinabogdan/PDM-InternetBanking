@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.RemoteViews;
 
 import org.pdm.ib.R;
@@ -31,16 +33,25 @@ public class AccountBalanceWidget extends AppWidgetProvider {
     private AccountService accountService = new AccountServiceImpl();
 
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+        new Thread(() -> {
+            // Construct the RemoteViews object
 
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.account_balance_widget);
-        views.setTextViewText(R.id.widgetTextViewTotalAmount, getBalance().toString());
-        views.setTextViewText(R.id.widgetTextViewLastUpdated, getTime());
-        views.setOnClickPendingIntent(R.id.widget_button_payment, getPaymentsIntent(context));
-        views.setOnClickPendingIntent(R.id.widgetImageViewRefresh, getRefreshIntent(context, appWidgetId));
+            Double balance = getBalance();
 
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+            new Handler(Looper.getMainLooper())
+                    .post(() -> {
+                        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.account_balance_widget);
+
+                        views.setTextViewText(R.id.widgetTextViewTotalAmount, balance.toString());
+                        views.setTextViewText(R.id.widgetTextViewLastUpdated, getTime());
+                        views.setOnClickPendingIntent(R.id.widget_button_payment, getPaymentsIntent(context));
+                        views.setOnClickPendingIntent(R.id.widgetImageViewRefresh, getRefreshIntent(context, appWidgetId));
+
+                        appWidgetManager.updateAppWidget(appWidgetId, views);
+                    });
+
+            // Instruct the widget manager to update the widget
+        }).start();
     }
 
     @Override
