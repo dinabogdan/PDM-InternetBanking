@@ -6,6 +6,7 @@ import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
 import org.pdm.ib.command.UserAuthCommand;
 import org.pdm.ib.model.Account;
+import org.pdm.ib.model.Notification;
 import org.pdm.ib.model.Transaction;
 import org.pdm.ib.model.TxRecyclerView;
 
@@ -61,4 +62,7 @@ public interface RetrofitAPIInteface {
 
     @POST("/transactions")
     Call<Void> addTx(@Body TxRecyclerView tx);
+
+    @GET("/notifications")
+    Call<Notification> getNotification();
 }

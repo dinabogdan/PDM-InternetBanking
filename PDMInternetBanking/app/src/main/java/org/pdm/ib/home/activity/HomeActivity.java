@@ -1,5 +1,6 @@
 package org.pdm.ib.home.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,7 +24,9 @@ import org.pdm.ib.context.AccountContextHolder;
 import org.pdm.ib.home.fragment.FragmentContentHome;
 import org.pdm.ib.map.FindATMActivity;
 import org.pdm.ib.model.Account;
+import org.pdm.ib.model.Notification;
 import org.pdm.ib.model.UserProfile;
+import org.pdm.ib.notification.NotificationService;
 import org.pdm.ib.payments.FragmentPayments;
 import org.pdm.ib.service.AccountService;
 import org.pdm.ib.service.UserProfileService;
@@ -60,6 +63,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else {
             replaceFragment(FragmentContentHome.class);
         }
+
+        startService(new Intent(this, NotificationService.class));
 
         View header = navigationView.getHeaderView(0);
 

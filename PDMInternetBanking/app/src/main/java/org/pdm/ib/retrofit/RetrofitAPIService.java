@@ -5,6 +5,7 @@ import org.pdm.ib.command.AccountCommand;
 import org.pdm.ib.command.CustomerCommand;
 import org.pdm.ib.command.TransactionCommand;
 import org.pdm.ib.command.UserAuthCommand;
+import org.pdm.ib.model.Notification;
 import org.pdm.ib.model.TxRecyclerView;
 import org.pdm.ib.model.UserProfile;
 
@@ -165,6 +166,16 @@ public class RetrofitAPIService {
 
     public Void addTx(TxRecyclerView tx) {
         Call<Void> call = retrofitAPIInteface.addTx(tx);
+        try {
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Notification getNotification() {
+        Call<Notification> call = retrofitAPIInteface.getNotification();
         try {
             return call.execute().body();
         } catch (IOException e) {
